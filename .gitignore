@@ -6,5 +6,6 @@ npm-debug.log
 .idea
 .idea/*
 dist
-
+*.tgz
+*.log
 
