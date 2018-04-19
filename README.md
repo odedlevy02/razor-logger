@@ -1,9 +1,9 @@
 # razor-logger
 
-
+A simple wrapper around winston logger 
 ## Installation
 ```
-npm install dotenv-display
+npm install razor-logger
 ````
 
 ## Usage

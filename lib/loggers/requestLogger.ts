@@ -1,7 +1,7 @@
-import {ILogOptions, LoggerBase} from "./loggerBase";
+import { LoggerBase} from "./loggerBase";
 import * as expressWinston from "express-winston";
 
-const defaultReqLogOptions: ILogOptions = {console: false, file: {fileName: "requests.log"}}
+const defaultReqLogOptions= {console: false, file: {fileName: "requests.log"}}
 
 // To log express requests , server.js add before creating a router use the logger:
 // this.app.use(new RequestLogger ().createLogger({console:true,file:{fileName:"requests.log"}));
@@ -11,7 +11,7 @@ export class RequestLogger extends LoggerBase{
         super()
     }
 
-    createLogger(options: ILogOptions = defaultReqLogOptions){
+    createLogger(options = defaultReqLogOptions){
         if(this.logResponseBody){
             expressWinston.requestWhitelist.push('body')
         }
