@@ -5,7 +5,12 @@ import * as winston from "winston";
 export class ConsoleTransportBuilder implements ITransportBuilder{
 
     buildTransport(options: any): TransportInstance {
-        return new winston.transports.Console()
+        if(options==true){
+            return new winston.transports.Console()
+        }else{
+            return null;
+        }
+
     }
 
 }

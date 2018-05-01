@@ -4,7 +4,7 @@ import * as expressWinston from "express-winston";
 const defaultReqLogOptions= {console: false, file: {fileName: "requests.log"}}
 
 // To log express requests , server.js add before creating a router use the logger:
-// this.app.use(new RequestLogger ().createLogger({console:true,file:{fileName:"requests.log"}));
+// this.app.use(new RequestLogger ().createLogger({console:false,file:{fileName:"requests.log"}}));
 
 export class RequestLogger extends LoggerBase{
     constructor(private logRequestBody:boolean=true,private logResponseBody=true){

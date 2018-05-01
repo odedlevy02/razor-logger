@@ -53,7 +53,10 @@ export abstract class LoggerBase{
             if(this.transportersList.has(key)){
                 let builder = this.transportersList.get(key);
                 let option = options[key]
-                logTransports.push(builder.buildTransport(option))
+                let transport = builder.buildTransport(option)
+                if(transport){
+                    logTransports.push(transport)
+                }
             }
         })
         return logTransports;
