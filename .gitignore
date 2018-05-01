@@ -2,7 +2,7 @@ node_modules
 *.js
 *.orig
 *.js.map
-npm-debug.log
+*.log
 .idea
 .idea/*
 dist
