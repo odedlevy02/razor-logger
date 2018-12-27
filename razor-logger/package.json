@@ -1,6 +1,6 @@
 {
   "name": "razor-logger",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Use winston logger for your console logs. Support file , s3 and rest api. Log express requests",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

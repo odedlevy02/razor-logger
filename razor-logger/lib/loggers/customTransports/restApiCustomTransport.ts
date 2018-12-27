@@ -8,12 +8,20 @@ export class RestApiCustomTransport extends Transport {
     }
   
     log(level, msg, meta) {
-      let fullMessage = msg;
-      if(meta){
-        fullMessage =`${fullMessage}. ${JSON.stringify(meta)}`
+      //if(this.validateAuthToken() && this.validateLevelFilter(level)){
+      if(this.validateLevelFilter(level)){
+        let fullMessage = msg;
+        if(meta){
+          fullMessage =`${fullMessage}. ${JSON.stringify(meta)}`
+        }
+        let log:ILog = {date:new Date(),level,logMessage:fullMessage,origin:this.opts.origin}
+        request.post(this.opts.url).send(log).then(res=>{
+          //cant console log since it will cause the transport to enter an infinite loop
+        }).catch(err=>{
+          //cant console log since it will cause the transport to enter an infinite loop
+        });
       }
-      let log:ILog = {date:new Date(),level,logMessage:fullMessage,origin:this.opts.url}
-      request.post()
+      
     }
     validateLevelFilter=(level:string)=>{
       //if requires filter and level contained
