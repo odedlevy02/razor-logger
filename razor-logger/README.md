@@ -20,6 +20,8 @@ Initially the module supports 3 transports (storage for the logs):
 1. Console logging
 2. File logging
 3. S3 logging
+4. Custom REST api
+5. Callback
 
 It is easy to add any additional transports. Just implement the 'ITransportBuilder' and register your class and your good to go.
 
@@ -30,9 +32,11 @@ The module supports 2 different loggers that can both be used in the same app
 
 ##Configuration List
 Here is the list of configurations for each transport type
-1. console - boolean (e.g. console:true)
-2. file - { fileName: string, datePattern?: string, dirname?:string,  maxSize?: number,maxFiles?:number } (e.g. file:{fileName:"someFile.txt"})
-3. s3 - { bucket: string, folder?: string, access_key_id: string, secret_access_key: string, nameFormat?: string } 
+1. console : boolean (e.g. console:true)
+2. file : { fileName: string, datePattern?: string, dirname?:string,  maxSize?: number,maxFiles?:number } (e.g. file:{fileName:"someFile.txt"})
+3. s3 :{ bucket: string, folder?: string, access_key_id: string, secret_access_key: string, nameFormat?: string } 
+4. restApi: {url:string,authToken:string,mandatoryAuthToken:boolean,origin?:string,filterLogLevel:string[]}
+5. callback : boolean (e.g. callback:true)
 
 
 ## ConsoleLogger Usage
@@ -43,6 +47,11 @@ For instance to initialize a logger for console and file you would write
 new ConsoleLogger().createLogger({console:true,file:{fileName:"somefile.log"}});
 ````
 Make sure to create the logger prior to any other console.log in your code
+
+It also possible to update the loggers list. This is mainly relevant in case you are using the rest api and require a token. The Token will only be available when the user logs in. In this case you can update the json configuration and then reload the loggers:
+```
+new ConsoleLogger().configureLogger({restApi:{url:"http://localhost:3000/logs/save",authToken:"some token",mandatoryAuthToken:true});
+```
 
 ##RequestLogger usage
 To use the console logger with Express just instantiate the RequestLogger class and call the createLogger({options} method with a set of configurations for each transport.

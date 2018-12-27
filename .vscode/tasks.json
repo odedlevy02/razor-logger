@@ -1,0 +1,30 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "logger",
+            "type": "typescript",
+            "tsconfig": "razor-logger\\tsconfig.json",
+            "option": "watch",
+            "problemMatcher": [
+                "$tsc-watch"
+            ]
+        },
+        {
+            "label": "tester",
+            "type": "typescript",
+            "tsconfig": "testerApp\\tsconfig.json",
+            "option": "watch",
+            "problemMatcher": [
+                "$tsc-watch"
+            ]
+        },
+        {
+            "label": "compile-all",
+            "dependsOn":["tester","logger"],
+            "problemMatcher": []
+        }
+    ]
+}

@@ -3,7 +3,7 @@ import * as winston from "winston";
 
 const defaultConsoleLogOptions = {console: true}
 
-export var consoleLogger = null;
+export var consoleLogger:winston.LoggerInstance = null;
 
 // To log all console logs add this before writing any console logs:
 // new ConsoleLogger().createLogger({console:true,file:{fileName:"appconsole.log"}})
@@ -14,5 +14,12 @@ export class ConsoleLogger extends LoggerBase{
             transports: logTransports
         });
         require("./logConsoleOverrides")
+    }
+
+    configureLogger(options: any = defaultConsoleLogOptions){
+        let logTransports = this.getTransportsList(options);
+        consoleLogger.configure({
+            transports: logTransports
+        })
     }
 }

@@ -2,6 +2,8 @@ import {TransportInstance} from "winston";
 import {S3TransportBuilder} from "./transportInstances/s3TransportBuilder";
 import {FileTransportBuilder} from "./transportInstances/fileTransportBuilder";
 import {ConsoleTransportBuilder} from "./transportInstances/consoleTransportBuilder";
+import { RestApiTransportBuilder } from "./transportInstances/restApiTransportBuilder";
+import { CallbackTransportBuilder } from "./transportInstances/callbackTransportBuilder";
 
 /*
 * The ITransportBuilder interface needs to be implemented by classes that create winstons TransportInstance
@@ -40,6 +42,8 @@ export abstract class LoggerBase{
         this.appendTransportsMap("console",new ConsoleTransportBuilder())
         this.appendTransportsMap("file",new FileTransportBuilder())
         this.appendTransportsMap("s3",new S3TransportBuilder())
+        this.appendTransportsMap("restApi",new RestApiTransportBuilder())
+        this.appendTransportsMap("callback",new CallbackTransportBuilder())
     }
 
     appendTransportsMap=(key:string,logTransport:ITransportBuilder)=>{
