@@ -35,8 +35,8 @@ Here is the list of configurations for each transport type
 1. console : boolean (e.g. console:true)
 2. file : { fileName: string, datePattern?: string, dirname?:string,  maxSize?: number,maxFiles?:number } (e.g. file:{fileName:"someFile.txt"})
 3. s3 :{ bucket: string, folder?: string, access_key_id: string, secret_access_key: string, nameFormat?: string } 
-4. restApi: {url:string,authToken:string,mandatoryAuthToken:boolean,origin?:string,filterLogLevel:string[]}
-5. callback : boolean (e.g. callback:true)
+4. restApi: {url:string,authToken:string,mandatoryAuthToken:boolean,origin?:string,filterLogLevel?:string[]}
+5. callback : { callbackMethod: (level:string, log:string, meta:any) => void, filterLogLevel?:string[] } 
 
 
 ## ConsoleLogger Usage
