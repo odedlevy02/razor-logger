@@ -13,5 +13,6 @@ describe("console log tests",()=>{
         let logger = new ConsoleOverrideLogger();
         logger.createLogger({console:{display:true,format:"json"}})
         console.log("just some log");
+        
     })
 })
