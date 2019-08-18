@@ -15,8 +15,9 @@ export class LokiTransport extends Transport{
         if(this._lokiOptions && this._lokiOptions.pushLogs && this._lokiOptions.lokiUrl){
             let mergedLabels = this.mergeLabels(info.labels,this._lokiOptions.defaultLabels);
             let labelsStr = this.createGoLabels(mergedLabels);
-            this.sendLogToLoki(info.level,info.message,labelsStr,this._lokiOptions.lokiUrl);
+            //this.sendLogToLoki(info.level,info.message,labelsStr,this._lokiOptions.lokiUrl);
         }
+        //callback();
     }
 
     sendLogToLoki(level,log,labelStr,lokiUrl){
@@ -35,7 +36,11 @@ export class LokiTransport extends Transport{
 
     postToLoki(lokiUrl,lokiLog){
         request.post(lokiUrl).send(lokiLog).then(res=>{}).catch(err=>{
+            try{
             this.warnNoConnection(err);
+            }catch(err){
+                let l = err;
+            }
         })
     }
 
