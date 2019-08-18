@@ -9,7 +9,11 @@ config({path: configPath});
 import {ConsoleOverrideLogger} from "razor-logger";
 let logger = new ConsoleOverrideLogger();
 //logger.createLogger({console:{display:true}});
-logger.createLogger({console:{display:true},loki:{pushLogs:true,lokiUrl:"http://localhost:3100/api/prom/push"}});
+let loggerConfig = {console:{display:true}};
+if(process.env.PUSH_LOGS=="true"){
+    loggerConfig["loki"]={pushLogs:true,lokiUrl:process.env.LOKI_URL}
+}
+logger.createLogger(loggerConfig);
 
 const server = new Server();
 server.setRoutes();

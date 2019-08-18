@@ -11,8 +11,7 @@
     "compression": "^1.7.4",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
-    "prompt": "^1.0.0",
-    "razor-logger": "^2.0.0"
+    "prompt": "^1.0.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",

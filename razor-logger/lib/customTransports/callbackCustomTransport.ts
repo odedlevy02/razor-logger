@@ -15,6 +15,7 @@ export class CallbackCustomTransport extends Transport {
         this.opts.callbackMethod(info.level,info.message, info.meta);
       }
     }
+    callback();
   }
 
   validateLevelFilter = (level: string) => {

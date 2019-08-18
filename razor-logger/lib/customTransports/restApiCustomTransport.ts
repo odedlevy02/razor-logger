@@ -11,7 +11,7 @@ export class RestApiCustomTransport extends Transport {
 
   log(info, callback) {
     //if(this.validateAuthToken() && this.validateLevelFilter(level)){
-    let level:string = info.level;
+    let level: string = info.level;
     if (this.validateLevelFilter(level)) {
       let fullMessage = info.message;
       if (info.meta) {
@@ -19,12 +19,12 @@ export class RestApiCustomTransport extends Transport {
       }
       let log: ILog = { date: new Date(), level, logMessage: fullMessage, origin: this.opts.origin }
       request.post(this.opts.url).send(log).then(res => {
-        
+
       }).catch(err => {
         baseConsoleError(`RestApiCustomTransport error - could not send rest request. Error: ${err.message}`)
       });
     }
-
+    callback();
   }
   validateLevelFilter = (level: string) => {
     //if requires filter and level contained
