@@ -1,6 +1,7 @@
-import {TransportInstance, Transport} from "winston";
 import * as request from "superagent";
 import { restApiOption } from "../transportInstances/restApiTransportBuilder";
+import {} from "winston-transport";
+
 export class RestApiCustomTransport extends Transport {
     
     constructor(private opts:restApiOption) {

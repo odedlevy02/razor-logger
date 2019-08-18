@@ -1,12 +1,15 @@
-import { ITransportBuilder } from "../loggerBase";
-import { TransportInstance } from "winston";
-import * as winston from "winston";
 import { CallbackCustomTransport } from "../customTransports/callbackCustomTransport";
+import { ITransportBuilder } from "../ITransportBuilder";
+import * as Transport from "winston-transport"
 
-export type callbackOption = { callbackMethod: (level, log, meta) => void,filterLogLevel?:string[] }
+
+export interface callbackOption { //extends Transport.TransportStreamOptions
+    callbackMethod: (level, log, meta) => void,filterLogLevel?:string[]
+}
+
 export class CallbackTransportBuilder implements ITransportBuilder {
 
-    buildTransport(options: any): TransportInstance {
+    buildTransport(options: any):Transport {
         if (options.callbackMethod) {
             return new CallbackCustomTransport(options)
         } else {

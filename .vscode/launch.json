@@ -7,10 +7,25 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/testerApp/index.js",
+            "name": "razor-logger tests",
+            "program": "${workspaceFolder}/razor-logger/node_modules/mocha/bin/_mocha",
+            "args": [
+                "--timeout",
+                "999999",
+                "--colors",
+                "${workspaceFolder}/razor-logger/**/*.spec.js"
+            ],
+            "outputCapture": "std",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "razor-logger",
+            "program": "${workspaceFolder}/razor-logger2/index.ts",
+            "outputCapture": "std",
             "outFiles": [
-                "${workspaceFolder}/**/*.js"
+                "${workspaceFolder}/razor-logger2/dist/**/*.js"
             ]
         }
     ]

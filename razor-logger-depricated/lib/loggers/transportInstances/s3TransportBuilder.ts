@@ -1,12 +1,11 @@
 import {ITransportBuilder} from "../loggerBase";
-import {TransportInstance} from "winston";
 import * as winston from "winston";
 import * as path from "path";
 
 export type s3Option = { bucket: string, folder?: string, access_key_id: string, secret_access_key: string, nameFormat?: string }
 
 export class S3TransportBuilder implements ITransportBuilder{
-    buildTransport(s3Option: s3Option): TransportInstance {
+    buildTransport(s3Option: s3Option) {
         var S3StreamLogger = require('s3-streamlogger').S3StreamLogger;
         var s3stream = new S3StreamLogger({
             bucket: s3Option.bucket,

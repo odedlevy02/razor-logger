@@ -6,7 +6,7 @@
         {
             "label": "logger",
             "type": "typescript",
-            "tsconfig": "razor-logger\\tsconfig.json",
+            "tsconfig": "razor-logger/tsconfig.json",
             "option": "watch",
             "problemMatcher": [
                 "$tsc-watch"
@@ -15,7 +15,7 @@
         {
             "label": "tester",
             "type": "typescript",
-            "tsconfig": "testerApp\\tsconfig.json",
+            "tsconfig": "testerApp/tsconfig.json",
             "option": "watch",
             "problemMatcher": [
                 "$tsc-watch"

@@ -9,28 +9,29 @@ Supports 2 Logger types:
 ```
 npm install razor-logger
 ````
-##Overview
+## Overview
 Winston is a great Logger but configuring it in each app takes time. I wanted to make simple yet extensive wrapper that I can use with a single line in my code. I wanted to initialize the logger with all the required configuration values for each of the transport types and just have them up and running
 In addition I find it great to have the ability to override all the console.logs that users have inside their code. 
 
 An additional log I found myself requiring is one that logs all web requests including the request body and the response code and body as well. 
 
-##Supported transports
-Initially the module supports 3 transports (storage for the logs):
+## Supported transports
+Initially the module supports these transports (storage for the logs):
 1. Console logging
 2. File logging
 3. S3 logging
 4. Custom REST api
 5. Callback
+6. Loki - (https://github.com/grafana/loki)
 
 It is easy to add any additional transports. Just implement the 'ITransportBuilder' and register your class and your good to go.
 
-##Supported loggers
+## Supported loggers
 The module supports 2 different loggers that can both be used in the same app
 1. Console Logger - a logger that monitors all the users console.logs and logs them to the various transports
 2. Web Request logger - a logger that monitors all the web requests and logs them to the various transports
 
-##Configuration List
+## Configuration List
 Here is the list of configurations for each transport type
 1. console : boolean (e.g. console:true)
 2. file : { fileName: string, datePattern?: string, dirname?:string,  maxSize?: number,maxFiles?:number } (e.g. file:{fileName:"someFile.txt"})

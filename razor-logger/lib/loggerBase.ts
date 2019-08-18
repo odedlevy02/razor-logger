@@ -1,20 +1,10 @@
-import {TransportInstance} from "winston";
-import {S3TransportBuilder} from "./transportInstances/s3TransportBuilder";
-import {FileTransportBuilder} from "./transportInstances/fileTransportBuilder";
-import {ConsoleTransportBuilder} from "./transportInstances/consoleTransportBuilder";
+import { ITransportBuilder } from "./ITransportBuilder";
+import { ConsoleTransportBuilder } from "./transportInstances/consoleTransportBuilder";
+import { FileTransportBuilder } from "./transportInstances/fileTransportBuilder";
+import { S3TransportBuilder } from "./transportInstances/s3TransportBuilder";
 import { RestApiTransportBuilder } from "./transportInstances/restApiTransportBuilder";
 import { CallbackTransportBuilder } from "./transportInstances/callbackTransportBuilder";
-
-/*
-* The ITransportBuilder interface needs to be implemented by classes that create winstons TransportInstance
-* When creating your own TransportBuilder implement ITransportBuilder and register it using method appendTransportsMap with the name
-* Then when initializing the logger via createLogger method - add a property with the map name and an object with it's initializing data.
-* This data will be passed to the transport builder for required initializations
-* (e.g. for initializing an s3 transport it is required to pass in {bucket: string, folder?: string, access_key_id: string, secret_access_key: string, nameFormat?: string}
-* * */
-export interface ITransportBuilder{
-    buildTransport(options:any):TransportInstance;
-}
+import { LokiTransportBuilder } from "./transportInstances/lokiTransportBuilder";
 
 /*
 * The LoggerBase is a base class that should be inherited when creating a logger
@@ -29,6 +19,8 @@ export interface ITransportBuilder{
 * The logger registers 3 default transport builders but it is possible to add others or replace the defaults with custom logic
 *
 * */
+
+
 export abstract class LoggerBase{
 
     constructor(){
@@ -44,13 +36,16 @@ export abstract class LoggerBase{
         this.appendTransportsMap("s3",new S3TransportBuilder())
         this.appendTransportsMap("restApi",new RestApiTransportBuilder())
         this.appendTransportsMap("callback",new CallbackTransportBuilder())
+        this.appendTransportsMap("loki",new LokiTransportBuilder())
     }
 
     appendTransportsMap=(key:string,logTransport:ITransportBuilder)=>{
         this.transportersList.set(key,logTransport)
     }
 
-    protected getTransportsList = (options: any): TransportInstance[] => {
+    //method for getting the configuration containing the list of transports required and there settings
+    //it then retunrs the the list of winston transports
+    getTransportsList = (options: any): any[] => {
         let logTransports = []
         //iterate over list of keys and find maching
         Object.keys(options).forEach(key=>{

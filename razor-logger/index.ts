@@ -1,8 +1,5 @@
-export {RequestLogger} from "./lib/loggers/requestLogger";
-export {fileOption} from "./lib/loggers/transportInstances/fileTransportBuilder";
-export {s3Option} from "./lib/loggers/transportInstances/s3TransportBuilder";
-export {restApiOption} from "./lib/loggers/transportInstances/restApiTransportBuilder";
-export {ConsoleLogger} from "./lib/loggers/consoleLogger";
-
-
-
+//export {RequestLogger} from "./lib/requestLogger";
+export {fileOption} from "./lib/transportInstances/fileTransportBuilder";
+export {s3Option} from "./lib/transportInstances/s3TransportBuilder";
+export {restApiOption} from "./lib/transportInstances/restApiTransportBuilder";
+export {ConsoleOverrideLogger} from "./lib/consoleOverrideLogger";
