@@ -14,21 +14,6 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha Tests",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-            "args": [
-                "-u",
-                "tdd",
-                "--timeout",
-                "999999",
-                "--colors",
-                "${workspaceFolder}/test"
-            ],
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "node",
-            "request": "launch",
             "name": "razor-logger tests",
             "cwd": "${workspaceFolder}/razor-logger",
             "program": "${workspaceFolder}/razor-logger/node_modules/mocha/bin/_mocha",
