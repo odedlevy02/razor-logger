@@ -83,14 +83,14 @@ To use the console logger just instantiate the ConsoleLogger class and call the 
 For instance to initialize a logger for console and file you would write
 
 ````
-new ConsoleLogger().createLogger({console:true,file:{fileName:"somefile.log"}});
+new ConsoleLogger().createLogger({console:{display:true},file:{fileName:"somefile.log"}});
 ````
 
 Make sure to create the logger prior to any other console.log in your code
 
 It also possible to update the loggers list. This is mainly relevant in case you are using the rest api and require a token. The Token will only be available when the user logs in. In this case you can update the json configuration and then reload the loggers:
 ```
-new ConsoleLogger().configureLogger({restApi:{url:"http://localhost:3000/logs/save",authToken:"some token",mandatoryAuthToken:true});
+new ConsoleLogger().configureLogger({restApi:{url:"http://localhost:3000/logs/save"});
 ```
 
 ##Adding additional transports
