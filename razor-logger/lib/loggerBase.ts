@@ -5,6 +5,7 @@ import { S3TransportBuilder } from "./transportInstances/s3TransportBuilder";
 import { RestApiTransportBuilder } from "./transportInstances/restApiTransportBuilder";
 import { CallbackTransportBuilder } from "./transportInstances/callbackTransportBuilder";
 import { LokiTransportBuilder } from "./transportInstances/lokiTransportBuilder";
+import { CoralogixTransportBuilder } from "./transportInstances/coralogixTransportBuilder";
 
 /*
 * The LoggerBase is a base class that should be inherited when creating a logger
@@ -37,6 +38,7 @@ export abstract class LoggerBase{
         this.appendTransportsMap("restApi",new RestApiTransportBuilder())
         this.appendTransportsMap("callback",new CallbackTransportBuilder())
         this.appendTransportsMap("loki",new LokiTransportBuilder())
+        this.appendTransportsMap("coralogix",new CoralogixTransportBuilder())
     }
 
     appendTransportsMap=(key:string,logTransport:ITransportBuilder)=>{

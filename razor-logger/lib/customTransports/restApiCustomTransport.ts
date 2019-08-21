@@ -2,6 +2,7 @@ import * as request from "superagent";
 import { restApiOption } from "../transportInstances/restApiTransportBuilder";
 import * as Transport from "winston-transport";
 import { baseConsoleError } from "../consoleOverrides/logConsoleDefaults";
+import { shouldLogLevel } from "../helpers/validators";
 
 export class RestApiCustomTransport extends Transport {
 
@@ -12,7 +13,7 @@ export class RestApiCustomTransport extends Transport {
   log(info, callback) {
     //if(this.validateAuthToken() && this.validateLevelFilter(level)){
     let level: string = info.level;
-    if (this.validateLevelFilter(level)) {
+    if (shouldLogLevel(this.opts, level)) {
       let fullMessage = info.message;
       if (info.meta) {
         fullMessage = `${fullMessage}. ${JSON.stringify(info.meta)}`
@@ -25,15 +26,6 @@ export class RestApiCustomTransport extends Transport {
       });
     }
     callback();
-  }
-  validateLevelFilter = (level: string) => {
-    //if requires filter and level contained
-    if (this.opts.filterLogLevel && this.opts.filterLogLevel.length > 0 && this.opts.filterLogLevel.includes(level)) {
-      return true;
-    } else if (!this.opts.filterLogLevel || this.opts.filterLogLevel.length == 0) { //not require filter
-      return true;
-    }
-    return false;
   }
   validateAuthToken = (): boolean => {
     if (this.opts.mandatoryAuthToken && !this.opts.authToken) {

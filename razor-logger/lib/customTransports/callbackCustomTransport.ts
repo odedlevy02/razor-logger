@@ -1,5 +1,6 @@
 import * as Transport from "winston-transport";
 import { callbackOption } from "../transportInstances/callbackTransportBuilder";
+import { shouldLogLevel } from "../helpers/validators";
 
 
 
@@ -10,7 +11,7 @@ export class CallbackCustomTransport extends Transport {
   }
 
   log(info, callback) {
-    if (this.validateLevelFilter(info.level)) {
+    if (shouldLogLevel(this.opts, info.level)) {
       if (this.opts && this.opts.callbackMethod) {
         this.opts.callbackMethod(info.level,info.message, info.meta);
       }
@@ -18,13 +19,4 @@ export class CallbackCustomTransport extends Transport {
     callback();
   }
 
-  validateLevelFilter = (level: string) => {
-    //if requires filter and level contained
-    if (this.opts.filterLogLevel && this.opts.filterLogLevel.length > 0 && this.opts.filterLogLevel.includes(level)) {
-      return true;
-    } else if (!this.opts.filterLogLevel || this.opts.filterLogLevel.length == 0) { //not require filter
-      return true;
-    }
-    return false;
-  }
 };

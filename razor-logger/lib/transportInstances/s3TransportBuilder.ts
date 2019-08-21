@@ -8,7 +8,8 @@ export type s3Option = {
     folder?: string,
     access_key_id: string,
     secret_access_key: string,
-    nameFormat?: string
+    nameFormat?: string,
+    level?:string;
 }
 
 export class S3TransportBuilder implements ITransportBuilder {
@@ -25,9 +26,12 @@ export class S3TransportBuilder implements ITransportBuilder {
             // there was an error!
             baseConsoleError('logging transport error', err);
         });
-        var transport = new (winston.transports.File)({
-            stream: s3stream
-        });
+
+        let config:{stream:any,level?:string} = {stream: s3stream};
+        if(s3Option.level){
+            config.level = s3Option.level;
+        }
+        var transport = new winston.transports.File(config);
         return transport;
     }
 }

@@ -13,6 +13,7 @@ export class ConsoleOverrideLogger extends LoggerBase {
     createLogger(options: any = defaultConsoleLogOptions) {
         let logTransports = this.getTransportsList(options);
         consoleLogger = winston.createLogger({
+            level:"debug", //set default to debug since current default is only info
             transports: logTransports
         });
         if (ConsoleOverrideLogger.hasBeenCreated == false) {

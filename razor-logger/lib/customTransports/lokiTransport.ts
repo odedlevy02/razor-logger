@@ -1,8 +1,9 @@
 import * as Transport from "winston-transport";
 import { LokiOptions } from "../transportInstances/lokiTransportBuilder";
 import * as request from "superagent";
-import { baseConsoleWarn} from "../consoleOverrides/logConsoleDefaults";
+import { baseConsoleWarn } from "../consoleOverrides/logConsoleDefaults";
 import * as os from "os";
+import { shouldLogLevel } from "../helpers/validators";
 
 export class LokiTransport extends Transport {
     _lokiOptions: LokiOptions = null;
@@ -12,16 +13,19 @@ export class LokiTransport extends Transport {
     }
 
     log(info, callback) {
-        if (this._lokiOptions && this._lokiOptions.pushLogs && this._lokiOptions.lokiUrl) {
-            let mergedLabels = this.mergeLabels(info.labels, this._lokiOptions.defaultLabels);
-            this.appendHost(mergedLabels);
-            let labelsStr = this.createGoLabels(mergedLabels);
-            this.sendLogToLoki(info.level, info.message, labelsStr, this._lokiOptions.lokiUrl);
+        let level: string = info.level;
+        if (shouldLogLevel(this.opts, level)) {
+            if (this._lokiOptions && this._lokiOptions.pushLogs && this._lokiOptions.lokiUrl) {
+                let mergedLabels = this.mergeLabels(info.labels, this._lokiOptions.defaultLabels);
+                this.appendHost(mergedLabels);
+                let labelsStr = this.createGoLabels(mergedLabels);
+                this.sendLogToLoki(info.level, info.message, labelsStr, this._lokiOptions.lokiUrl);
+            }
         }
         callback();
     }
 
-    appendHost(labels:any){
+    appendHost(labels: any) {
         labels.host = os.hostname();
     }
 

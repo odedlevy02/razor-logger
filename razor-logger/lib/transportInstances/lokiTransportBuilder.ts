@@ -6,7 +6,8 @@ import { LokiTransport } from "../customTransports/lokiTransport";
 export interface LokiOptions { //extends Transport.TransportStreamOptions
     pushLogs:boolean;
     lokiUrl:string;
-    defaultLabels?:any
+    defaultLabels?:any,
+    level?:string
 }
 
 

@@ -4,7 +4,8 @@ import * as Transport from "winston-transport"
 
 
 export interface callbackOption { //extends Transport.TransportStreamOptions
-    callbackMethod: (level, log, meta) => void,filterLogLevel?:string[]
+    callbackMethod: (level, log, meta) => void;
+    level?:string;
 }
 
 export class CallbackTransportBuilder implements ITransportBuilder {

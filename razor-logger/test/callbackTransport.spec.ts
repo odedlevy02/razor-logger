@@ -9,8 +9,16 @@ describe("callback transport tests",()=>{
         logger.createLogger({callback:{callbackMethod:(level,msg,meta)=>{
             hasBeenCalled = true;
         }}})
-        let err = new Error("some error")
-        console.error("Some log",err);
+        console.warn("Some log");
         assert(hasBeenCalled);
+    })
+    it("should filter callback when level set to warn",()=>{
+        let logger = new ConsoleOverrideLogger();
+        let hasBeenCalled = false;
+        logger.createLogger({callback:{callbackMethod:(level,msg,meta)=>{
+            hasBeenCalled = true;
+        },level:"warn"}})
+        console.log("Some log");
+        assert(hasBeenCalled==false);
     })
 })

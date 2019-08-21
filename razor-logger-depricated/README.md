@@ -40,18 +40,18 @@ Here is the list of configurations for each transport type
 5. callback : { callbackMethod: (level:string, log:string, meta:any) => void, filterLogLevel?:string[] } 
 
 
-## ConsoleLogger Usage
-To use the console logger just instantiate the ConsoleLogger class and call the createLogger({options} method with a set of configurations for each transport.
+## ConsoleOverrideLogger Usage
+To use the console override logger just instantiate the ConsoleOverrideLogger class and call the createLogger({options} method with a set of configurations for each transport.
 For instance to initialize a logger for console and file you would write
 
 ````
-new ConsoleLogger().createLogger({console:true,file:{fileName:"somefile.log"}});
+new ConsoleOverrideLogger().createLogger({console:true,file:{fileName:"somefile.log"}});
 ````
 Make sure to create the logger prior to any other console.log in your code
 
 It also possible to update the loggers list. This is mainly relevant in case you are using the rest api and require a token. The Token will only be available when the user logs in. In this case you can update the json configuration and then reload the loggers:
 ```
-new ConsoleLogger().configureLogger({restApi:{url:"http://localhost:3000/logs/save",authToken:"some token",mandatoryAuthToken:true});
+new ConsoleOverrideLogger().configureLogger({restApi:{url:"http://localhost:3000/logs/save",authToken:"some token",mandatoryAuthToken:true});
 ```
 
 ##RequestLogger usage

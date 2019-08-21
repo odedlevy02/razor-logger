@@ -21,7 +21,7 @@
                 "--timeout",
                 "999999",
                 "--colors",
-                "${workspaceFolder}/razor-logger/**/*.spec.js"
+                "${workspaceFolder}/razor-logger/dist/**/*.spec.js"
             ],
             "outputCapture": "std",
             "internalConsoleOptions": "openOnSessionStart"

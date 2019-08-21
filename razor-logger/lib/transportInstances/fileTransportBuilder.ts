@@ -7,7 +7,8 @@ export type fileOption = {
     datePattern?: string,
     dirname?: string,
     maxSize?: number,
-    maxFiles?: number
+    maxFiles?: number,
+    level?:string
 }
 
 export class FileTransportBuilder implements ITransportBuilder {
@@ -23,7 +24,8 @@ export class FileTransportBuilder implements ITransportBuilder {
                 datePattern: fileOption.datePattern || 'YYYY-MM-DD.',
                 maxSize: fileOption.maxSize,
                 maxFiles: fileOption.maxFiles,
-                dirname: fileOption.dirname || "."
+                dirname: fileOption.dirname || ".",
+                level:fileOption.level
             });
     }
 
