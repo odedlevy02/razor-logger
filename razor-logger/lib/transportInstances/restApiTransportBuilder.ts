@@ -10,7 +10,6 @@ export interface restApiOption {
     authToken: string,
     mandatoryAuthToken: boolean,
     origin?: string,
-    filterLogLevel: string[],
     level?:string
 }
 
