@@ -7,10 +7,33 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/testerApp/index.js",
+            "name": "loki-log-service",
+            "program": "${workspaceFolder}/lokiLogService/index.js",
+            "outputCapture": "std",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "razor-logger tests",
+            "cwd": "${workspaceFolder}/razor-logger",
+            "program": "${workspaceFolder}/razor-logger/node_modules/mocha/bin/_mocha",
+            "args": [
+                "--timeout",
+                "999999",
+                "--colors",
+                "${workspaceFolder}/razor-logger/dist/**/*.spec.js"
+            ],
+            "outputCapture": "std",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "razor-logger",
+            "program": "${workspaceFolder}/razor-logger2/index.ts",
+            "outputCapture": "std",
             "outFiles": [
-                "${workspaceFolder}/**/*.js"
+                "${workspaceFolder}/razor-logger2/dist/**/*.js"
             ]
         }
     ]

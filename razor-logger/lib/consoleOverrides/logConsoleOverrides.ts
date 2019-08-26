@@ -1,4 +1,5 @@
-import {consoleLogger} from "./consoleLogger";
+import {consoleLogger} from "../consoleOverrideLogger";
+
 
 console.log = (...args) => {
     if (consoleLogger) consoleLogger.info.call(consoleLogger, ...args)

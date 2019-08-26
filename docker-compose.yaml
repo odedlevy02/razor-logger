@@ -1,0 +1,33 @@
+version: "3"
+networks:
+  loki:
+services:
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+  grafana:
+    image: grafana/grafana:master
+    ports:
+      - "3000:3000"
+    networks:
+      - loki
+  lokiLogService:
+    build:
+      context: ./lokiLogService
+    image: test/loki-log-service
+    ports:
+      - "4000:4000"
+    environment:
+      - LOKI_URL=http://loki:3100/api/prom/push
+      - PUSH_LOGS=true
+    networks:
+      - loki
+    # when using loki logger plugin need to set the PUSH_LOGS to false
+    # logging:
+    #   driver: loki
+    #   options:
+    #     loki-url: "http://localhost:3100/api/prom/push"
