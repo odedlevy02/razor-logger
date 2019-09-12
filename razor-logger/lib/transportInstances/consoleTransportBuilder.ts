@@ -13,7 +13,7 @@ export interface ConsoleOptions {
 export class ConsoleTransportBuilder implements ITransportBuilder {
 
     buildTransport(options: ConsoleOptions): Transport {
-        if (options && options.display == true) {
+        if (!options || options.display != false) { //by default if not set - log to console
             let config:{format:any,level?:string} = { format:format.simple()}
             if (options.format == "json") {
                 config.format = format.json()

@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "install:all":"npm run install:razor-logger && npm run install:tester-app && npm run install:loki-service",
-    "install:razor-logger":"cd razor-logger && npm i",
-    "install:tester-app":"cd testerApp && npm i",
-    "install:loki-service":"cd lokiLogService && npm i",
-    "build:all":"npm run build:razor-logger && npm run build:tester-app && npm run build:loki-service",
-    "build:razor-logger":"cd razor-logger && tsc && npm link",
-    "build:tester-app":"cd testerApp && npm link razor-logger && tsc",
-    "build:loki-service":"cd lokiLogService && npm link razor-logger  && tsc",
-    "install:build:all":"npm run install:all && npm run build:all",
-    "docker:build:all":"docker-compose build",
-    "docker:run:all":"docker-compose up",
-    "publish":"cd razor-logger && npm publish "
+    "install:all": "npm run install:razor-logger && npm run install:tester-app && npm run install:loki-service",
+    "install:razor-logger": "cd razor-logger && npm i",
+    "install:tester-app": "cd testerApp && npm i",
+    "install:loki-service": "cd lokiLogService && npm i",
+    "build:all": "npm run build:razor-logger && npm run build:tester-app && npm run build:loki-service",
+    "build:razor-logger": "cd razor-logger && tsc && npm link",
+    "build:tester-app": "cd testerApp && npm link razor-logger && tsc",
+    "build:loki-service": "cd lokiLogService && npm link razor-logger  && tsc",
+    "install:build:all": "npm run install:all && npm run build:all",
+    "docker:build:all": "docker-compose build",
+    "docker:run:all": "docker-compose up",
+    "publish": "cd razor-logger && npm publish "
   },
   "author": "Oded Levy"
 }

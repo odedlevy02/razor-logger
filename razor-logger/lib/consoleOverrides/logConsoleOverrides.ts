@@ -1,3 +1,4 @@
+//Once this file is imported, all logs are routed here
 import {consoleLogger} from "../consoleOverrideLogger";
 
 

@@ -7,7 +7,7 @@ const defaultConsoleLogOptions = { console: true }
 export var consoleLogger: Logger = null;
 
 // To log all console logs add this before writing any console logs:
-// new ConsoleLogger().createLogger({console:true,file:{fileName:"appconsole.log"}})
+// new ConsoleOverrideLogger().createLogger({console:{display:true},file:{fileName:"appconsole.log"}})
 export class ConsoleOverrideLogger extends LoggerBase {
     static hasBeenCreated = false;
     createLogger(options: any = defaultConsoleLogOptions) {

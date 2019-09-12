@@ -92,7 +92,7 @@ To use the console override logger just instantiate the ConsoleOverrideLogger cl
 For instance to initialize a logger for console and file you would write
 
 ````
-new ConsoleOverrideLogger().createLogger({console:true,file:{fileName:"somefile.log"}});
+new ConsoleOverrideLogger().createLogger({console:{display:true},file:{fileName:"somefile.log"}});
 ````
 Make sure to create the logger prior to any other console.log in your code
 
