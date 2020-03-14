@@ -12,6 +12,17 @@ npm install razor-logger
 Winston is a great Logger but configuring it in each app takes time. I wanted to make simple yet extensive wrapper that I can use with minimal lines of code. I wanted to initialize the logger with all the required configuration values for each of the transport types and just have them up and running
 In addition I find it great to have the ability to override all the console.logs that users have inside their code. 
 
+to start using just add in the begining of you app:
+```
+import {createLogger} from "razor-logger"
+//create the logger
+createLogger({console:{display:true,timestamp:true}, file:{dirname:"logs",fileName:"scraper-manager"}})
+//write console.logs errors, info etc and the logger will take of the rest
+console.log("some test log")
+//output in format of:
+//2020-03-14T23:44:03.355Z info: some test log
+```
+Inside the createLogger config options there are several other supported transporters
 ## Supported transports
 Initially the module supports these transports (storage for the logs):
 1. Console logging

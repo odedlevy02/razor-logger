@@ -1,5 +1,8 @@
-import { ConsoleOverrideLogger } from "razor-logger"
+import { createLogger } from "razor-logger"
 
+
+createLogger({console:{display:true,timestamp:true}})
+console.log("lets give it a try",{some:"obj"});
 
 // const callback=(level,msg,meta)=>{
 //     let myLevel = level;

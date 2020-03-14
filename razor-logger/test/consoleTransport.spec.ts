@@ -4,17 +4,27 @@ import assert = require("assert");
 import { ConsoleOverrideLogger } from "../lib/consoleOverrideLogger";
 
 describe("console log tests",()=>{
-    it("display console logs simple format",()=>{
+    it("display console logs simple format without timestamp",()=>{
         let logger = new ConsoleOverrideLogger();
         logger.createLogger({console:{display:true}})
         console.log("just some log");
     })
+    it("display console logs simple format with timestamp",()=>{
+        let logger = new ConsoleOverrideLogger();
+        logger.createLogger({console:{display:true,timestamp:true}})
+        console.log("log with timestamp");
+    })
     it("display console logs json format",()=>{
         let logger = new ConsoleOverrideLogger();
         logger.createLogger({console:{display:true,format:"json"}})
-        console.log("just some log");
-        
+        console.log("json log");
     })
+    it("display console logs json format with timestamp",()=>{
+        let logger = new ConsoleOverrideLogger();
+        logger.createLogger({console:{display:true,format:"json",timestamp:true}})
+        console.log("json log with timestamp");
+    })
+
     it("not display console logs when level set to warn ",()=>{
         let logger = new ConsoleOverrideLogger();
         logger.createLogger({console:{display:true,level:"warn"}})

@@ -1,6 +1,8 @@
-import * as winston from "winston";
+import { transports, format } from "winston";
 import { ITransportBuilder } from "../ITransportBuilder";
 import * as Transport from "winston-transport"
+
+
 
 export type fileOption = {
     fileName: string,
@@ -8,7 +10,7 @@ export type fileOption = {
     dirname?: string,
     maxSize?: number,
     maxFiles?: number,
-    level?:string
+    level?: string
 }
 
 export class FileTransportBuilder implements ITransportBuilder {
@@ -25,8 +27,14 @@ export class FileTransportBuilder implements ITransportBuilder {
                 maxSize: fileOption.maxSize,
                 maxFiles: fileOption.maxFiles,
                 dirname: fileOption.dirname || ".",
-                level:fileOption.level
-            });
+                level: fileOption.level,
+                format: format.combine(
+                    format.timestamp(),
+                    format.printf((info) => {
+                        return `${info.timestamp} ${info.level}: ${info.message}`;
+                    })
+                )
+            })
     }
 
 }

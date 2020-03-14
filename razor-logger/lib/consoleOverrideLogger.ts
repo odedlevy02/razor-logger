@@ -1,6 +1,9 @@
 import { LoggerBase } from "./loggerBase";
 import * as winston from "winston";
 import { Logger } from "winston";
+import { ConsoleOptions } from "./transportInstances/consoleTransportBuilder";
+import { fileOption } from "./transportInstances/fileTransportBuilder";
+import { callbackOption } from "./transportInstances/callbackTransportBuilder";
 
 const defaultConsoleLogOptions = { console: true }
 
@@ -14,7 +17,7 @@ export class ConsoleOverrideLogger extends LoggerBase {
         let logTransports = this.getTransportsList(options);
         consoleLogger = winston.createLogger({
             level:"debug", //set default to debug since current default is only info
-            transports: logTransports
+            transports: logTransports,
         });
         if (ConsoleOverrideLogger.hasBeenCreated == false) {
             //save the default consoles
@@ -32,3 +35,14 @@ export class ConsoleOverrideLogger extends LoggerBase {
         })
     }
 }
+
+export type loggerOptions={
+    console?:ConsoleOptions,
+    file?:fileOption,
+    callback?:callbackOption
+}
+
+export function createLogger(options: loggerOptions){
+    return new ConsoleOverrideLogger().createLogger(options)
+}
+
