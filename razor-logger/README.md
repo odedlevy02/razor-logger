@@ -14,10 +14,25 @@ In addition I find it great to have the ability to override all the console.logs
 
 to start using just add in the begining of you app:
 ```
-import {createLogger} from "razor-logger"
-//create the logger
-createLogger({console:{display:true,timestamp:true}, file:{dirname:"logs",fileName:"scraper-manager"}})
-//write console.logs errors, info etc and the logger will take of the rest
+import { config } from "dotenv";
+import * as path from "path"
+import { displayEnv } from "dotenv-display"
+import { createLogger } from "razor-logger"
+
+//load env before calling createLogger in case need to use env vars
+let configPath = path.join(__dirname, "./.env")
+let env = config({ path: configPath });
+
+//Loki url is as following: http://localhost:3100/api/prom/push
+createLogger({
+    console: { display: true, timestamp: true },
+    file: { dirname: "logs", fileName: "scraper-manager" },
+    loki:{pushLogs:true,lokiUrl: process.env.LOKI_URL,defaultLabels:{app:"scrape_manager"}}
+    
+})
+//display config variables defined in .env file
+displayEnv(env.parsed)
+
 console.log("some test log")
 //output in format of:
 //2020-03-14T23:44:03.355Z info: some test log

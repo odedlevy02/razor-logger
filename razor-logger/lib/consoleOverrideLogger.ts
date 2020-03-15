@@ -4,6 +4,7 @@ import { Logger } from "winston";
 import { ConsoleOptions } from "./transportInstances/consoleTransportBuilder";
 import { fileOption } from "./transportInstances/fileTransportBuilder";
 import { callbackOption } from "./transportInstances/callbackTransportBuilder";
+import { LokiOptions } from "./transportInstances/lokiTransportBuilder";
 
 const defaultConsoleLogOptions = { console: true }
 
@@ -39,7 +40,8 @@ export class ConsoleOverrideLogger extends LoggerBase {
 export type loggerOptions={
     console?:ConsoleOptions,
     file?:fileOption,
-    callback?:callbackOption
+    callback?:callbackOption,
+    loki?:LokiOptions
 }
 
 export function createLogger(options: loggerOptions){

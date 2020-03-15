@@ -52,7 +52,7 @@ export class LokiTransport extends Transport {
     warnNoConnection(err) {
         let log = err.message;
         if (err && err.response && err.response.error && err.response.error.message) {
-            log = err.response.error.message;
+            log = `${err.response.error.message}. ${err.response.error.text} `;
         }
         baseConsoleWarn(`Warn - Could not log to loki. Err: ${log}`);
     }
