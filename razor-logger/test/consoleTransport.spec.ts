@@ -9,6 +9,16 @@ describe("console log tests",()=>{
         logger.createLogger({console:{display:true}})
         console.log("just some log");
     })
+    it("display console logs with multiple args in console of type string",()=>{
+        let logger = new ConsoleOverrideLogger();
+        logger.createLogger({console:{display:true}})
+        console.log("just some log","additional info","plus some more");
+    })
+    it("display console logs with multiple args in console of type object and error",()=>{
+        let logger = new ConsoleOverrideLogger();
+        logger.createLogger({console:{display:true}})
+        console.log("just some log",{name:"John"},new Error("some error"));
+    })
     it("display console logs simple format with timestamp",()=>{
         let logger = new ConsoleOverrideLogger();
         logger.createLogger({console:{display:true,timestamp:true}})
