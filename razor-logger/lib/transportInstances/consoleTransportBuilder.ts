@@ -44,7 +44,7 @@ export class ConsoleTransportBuilder implements ITransportBuilder {
                     addAspectoTraceId(), 
                     format.printf((info) => {
                         if(info.traceId){
-                            return `${info.timestamp} ${info.level} ${info.traceId}: ${info.message}`;
+                            return `${info.timestamp} (tId:${info.traceId}) ${info.level}: ${info.message}`;
                         }else{
                             return `${info.timestamp} ${info.level}: ${info.message}`;
                         }
@@ -65,7 +65,7 @@ export class ConsoleTransportBuilder implements ITransportBuilder {
                     addAspectoTraceId(), 
                     format.printf((info) => {
                         if(info.traceId){
-                            return `${info.level} ${info.traceId}: ${info.message}`;
+                            return `(tId:${info.traceId}) ${info.level}: ${info.message}`;
                         }else{
                             return `${info.level}: ${info.message}`;
                         }
