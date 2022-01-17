@@ -24,6 +24,20 @@ describe("console log tests",()=>{
         logger.createLogger({console:{display:true,timestamp:true}})
         console.log("log with timestamp");
     })
+
+    it("display console logs simple format with timestamp",()=>{
+        let logger = new ConsoleOverrideLogger();
+        logger.createLogger({console:{display:true,timestamp:true}})
+        console.log("log with timestamp");
+    })
+
+    it("display console logs simple format with traceId",()=>{
+        let logger = new ConsoleOverrideLogger();
+        logger.createLogger({console:{display:true,traceId:true}})
+        //does not actually since print trace id since it is not in network call 
+        console.log("log with traceId");
+    })
+
     it("display console logs json format",()=>{
         let logger = new ConsoleOverrideLogger();
         logger.createLogger({console:{display:true,format:"json"}})

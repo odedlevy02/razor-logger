@@ -24,5 +24,5 @@ describe("coralogix logger tests", () => {
 })
 
 function delay(ms: number) {
-    return new Promise(resolve => setTimeout(() => resolve(), ms));
+    return new Promise<void>(resolve => setTimeout(() => resolve(), ms));
 }

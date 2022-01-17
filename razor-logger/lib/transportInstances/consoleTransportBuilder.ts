@@ -3,19 +3,22 @@ import { transports, format } from "winston";
 
 import * as Transport from "winston-transport"
 import { ITransportBuilder } from "../ITransportBuilder";
+// import { getContext } from "@aspecto/opentelemetry"
+const { getContext } = require('@aspecto/opentelemetry');
 
 export interface ConsoleOptions {
     display: boolean;
-    format?: "simple"|"json";
+    format?: "simple" | "json";
     level?: string,
-    timestamp?: boolean
+    timestamp?: boolean,
+    traceId?:boolean
 }
 
 export class ConsoleTransportBuilder implements ITransportBuilder {
 
     buildTransport(options: ConsoleOptions): Transport {
         if (options && options.display == true) {
-            let config: { format: any, level?: string } =<any>{}
+            let config: { format: any, level?: string } = <any>{}
 
             //remove since in json the timestamp does not work properly 
             // if (options.format == "json") {
@@ -26,18 +29,49 @@ export class ConsoleTransportBuilder implements ITransportBuilder {
             //           }),
             //     )
             // }
+            const addAspectoTraceId = format((info) => {
+                info.traceId = getContext().traceId;
+                return info;
+            });
+
             if (options.level) {
                 config.level = options.level;
             }
-            if (options.timestamp) {
+            if (options.timestamp && options.traceId) {
+                config.format = format.combine(
+                    format.simple(),
+                    format.timestamp(),
+                    addAspectoTraceId(), 
+                    format.printf((info) => {
+                        if(info.traceId){
+                            return `${info.timestamp} ${info.level} ${info.traceId}: ${info.message}`;
+                        }else{
+                            return `${info.timestamp} ${info.level}: ${info.message}`;
+                        }
+                        
+                    })
+                )
+            } else if (options.timestamp) {
                 config.format = format.combine(
                     format.simple(),
                     format.timestamp(),
                     format.printf((info) => {
                         return `${info.timestamp} ${info.level}: ${info.message}`;
-                      })
+                    })
                 )
-            }else{
+            } else if (options.traceId) {
+                config.format = format.combine(
+                    format.simple(),
+                    addAspectoTraceId(), 
+                    format.printf((info) => {
+                        if(info.traceId){
+                            return `${info.level} ${info.traceId}: ${info.message}`;
+                        }else{
+                            return `${info.level}: ${info.message}`;
+                        }
+                    })
+                )
+            } else {
                 config.format = format.combine(
                     format.simple()
                 )
