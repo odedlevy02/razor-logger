@@ -33,7 +33,7 @@ describe("loki tests", () => {
         let res = lokiLogger.mergeLabels({ consLabel: "label1" }, { labelDef: "default" })
         assert(res.labelDef && res.consLabel);
     })
-    it("should merge labels with default defined in config and per console", () => {
+    it.skip("should merge labels with default defined in config and per console", () => {
         let hasBeenSet = false;
         //create a loki transport and mock the warnNoConnection method making sure that it will be called
         let lokiTransport = new LokiTransport({ pushLogs: true, lokiUrl: "http://test", defaultLabels: { labelDef: "default" } });

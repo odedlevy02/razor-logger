@@ -1,4 +1,5 @@
 
+import { Format } from "logform";
 import { transports, format } from "winston";
 
 import * as Transport from "winston-transport"
@@ -11,7 +12,7 @@ export interface ConsoleOptions {
     format?: "simple" | "json";
     level?: string,
     timestamp?: boolean,
-    traceId?:boolean
+    traceId?: boolean
 }
 
 export class ConsoleTransportBuilder implements ITransportBuilder {
@@ -19,63 +20,47 @@ export class ConsoleTransportBuilder implements ITransportBuilder {
     buildTransport(options: ConsoleOptions): Transport {
         if (options && options.display == true) {
             let config: { format: any, level?: string } = <any>{}
-
-            //remove since in json the timestamp does not work properly 
-            // if (options.format == "json") {
-            //     config.format = format.combine(
-            //         format.json(),
-            //         format.timestamp({
-            //             format: 'YYYY-MM-DD HH:mm:ss'
-            //           }),
-            //     )
-            // }
-            const addAspectoTraceId = format((info) => {
-                info.traceId = getContext().traceId;
-                return info;
-            });
+         
+           
 
             if (options.level) {
                 config.level = options.level;
             }
-            if (options.timestamp && options.traceId) {
-                config.format = format.combine(
-                    format.simple(),
-                    format.timestamp(),
-                    addAspectoTraceId(), 
-                    format.printf((info) => {
-                        if(info.traceId){
-                            return `${info.timestamp} (tId:${info.traceId}) ${info.level}: ${info.message}`;
-                        }else{
-                            return `${info.timestamp} ${info.level}: ${info.message}`;
-                        }
-                        
-                    })
-                )
-            } else if (options.timestamp) {
-                config.format = format.combine(
-                    format.simple(),
-                    format.timestamp(),
-                    format.printf((info) => {
-                        return `${info.timestamp} ${info.level}: ${info.message}`;
-                    })
-                )
-            } else if (options.traceId) {
-                config.format = format.combine(
-                    format.simple(),
-                    addAspectoTraceId(), 
-                    format.printf((info) => {
-                        if(info.traceId){
-                            return `(tId:${info.traceId}) ${info.level}: ${info.message}`;
-                        }else{
-                            return `${info.level}: ${info.message}`;
-                        }
-                    })
-                )
-            } else {
-                config.format = format.combine(
-                    format.simple()
-                )
+            //Build the list of formats and then combine them
+            const formats: Format[] = []
+            if (options.timestamp) {
+                formats.push(format.timestamp())
             }
+            //Select between json and simple format
+            if (options.format == "json") {
+                formats.push(format.json())
+            } else {
+                formats.push(format.simple())
+            }
+            if (options.traceId) {
+                const addAspectoTraceId = format((info) => {
+                    info.traceId = getContext().traceId;
+                    return info;
+                });
+                formats.push(addAspectoTraceId())
+            }
+            //If this is a simple format then define the string format
+            if(options.format != "json"){
+                formats.push( format.printf((info) => {
+                    //base message contains level and message
+                    let message = `${info.level}: ${info.message}`
+                    
+                    if (info.traceId) {
+                        message = `(tId:${info.traceId}) ${message}`
+                    }
+                    if (info.timestamp) {
+                        message = `${info.timestamp} ${message}`
+                    }
+                    //total message will be <timestamp> <traceId> <level>: message
+                    return message;
+                }))
+            }
+            config.format = format.combine(...formats)//,
 
             return new transports.Console(config);
 

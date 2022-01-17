@@ -25,12 +25,12 @@ let env = config({ path: configPath });
 
 //Loki url is as following: http://localhost:3100/api/prom/push
 createLogger({
-    console: { display: true, timestamp: true },
+    console: { display: true, timestamp: true, format:"json", traceId:true },
     file: { dirname: "logs", fileName: "scraper-manager" },
     loki:{pushLogs:true,lokiUrl: process.env.LOKI_URL,defaultLabels:{app:"scrape_manager"}}
     
 })
-//display config variables defined in .env file
+//display config variables defined in .env file - (optional)
 displayEnv(env.parsed)
 
 console.log("some test log")
@@ -56,6 +56,8 @@ Here is the list of configurations for each transport type
     - display:boolean. Set to true to support console logs
     - format:string. Default set to simple. Optional value 'json' for json format logs
     - level?:string
+    - timestamp?: boolean - when set to true will append the timestamp to each log,
+    - traceId?:boolean - when set to true will append a trace id. The trace id comes from aspecto/opentelemetry  (https://www.aspecto.io/) and enables to trace the calls across network requests between services
 2. file :  (e.g. file:{fileName:"someFile.txt"})
     - fileName: string, 
     - datePattern?: string (date pattern in file name. Default 'YYYY-MM-DD.') 
