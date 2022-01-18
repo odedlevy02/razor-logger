@@ -40,6 +40,10 @@ export class ConsoleTransportBuilder implements ITransportBuilder {
             if (options.traceId) {
                 const addAspectoTraceId = format((info) => {
                     info.traceId = getContext().traceId;
+                    //added for unit testing when there is no traceid
+                    if(!info.traceId && options["simulateTraceId"]){
+                        info.traceId = "tid1234"
+                    }
                     return info;
                 });
                 formats.push(addAspectoTraceId())
@@ -48,16 +52,17 @@ export class ConsoleTransportBuilder implements ITransportBuilder {
             if(options.format != "json"){
                 formats.push( format.printf((info) => {
                     //base message contains level and message
-                    let message = `${info.level}: ${info.message}`
-                    
+                    let logMessage = `${info.message}`
+                    let preLogMessage = ""
                     if (info.traceId) {
-                        message = `(tId:${info.traceId}) ${message}`
+                        preLogMessage = `(tid:${info.traceId})`
                     }
+                    preLogMessage = preLogMessage?`${info.level} ${preLogMessage}`: info.level
                     if (info.timestamp) {
-                        message = `${info.timestamp} ${message}`
+                        preLogMessage = `${info.timestamp} ${preLogMessage}`
                     }
-                    //total message will be <timestamp> <traceId> <level>: message
-                    return message;
+                    //total message will be <timestamp> <level> <traceId>: message
+                    return `${preLogMessage}: ${logMessage}`;
                 }))
             }
             config.format = format.combine(...formats)//,

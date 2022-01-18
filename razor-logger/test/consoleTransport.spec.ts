@@ -27,9 +27,15 @@ describe("console log tests",()=>{
   
     it("display console logs simple format with traceId",()=>{
         let logger = new ConsoleOverrideLogger();
-        logger.createLogger({console:{display:true,traceId:true}})
-        //does not actually since print trace id since it is not in network call 
+        logger.createLogger({console:{display:true,traceId:true,simulateTraceId:true}})
         console.log("log with traceId");
+    })
+
+    it("display console logs simple format with timestamp and  traceId",()=>{
+        let logger = new ConsoleOverrideLogger();
+        logger.createLogger({console:{display:true,traceId:true,timestamp:true,simulateTraceId:true}})
+        //does not actually since print trace id since it is not in network call 
+        console.log("log with ts and tid");
     })
 
     it("display console logs json format",()=>{
