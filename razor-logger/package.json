@@ -32,7 +32,7 @@
         "@types/node": "^12.7.2",
         "@types/sinon": "^7.0.13",
         "chai": "^4.2.0",
-        "mocha": "^6.2.0"
+        "mocha": "^10.2.0"
     },
     "repository": "odedlevy02/razor-logger",
     "license": "Apache-2.0"
